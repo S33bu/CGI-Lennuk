@@ -1,6 +1,7 @@
 package com.example.lennuk;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Lend {
     private String start;
@@ -8,15 +9,21 @@ public class Lend {
     private LocalDate väljumisAeg;
     private float lennuKestvus;
     private float hind;
+    private ArrayList<String> istekohad;
 
     public Lend() {}
 
-    public Lend(String start, String sihtkoht, LocalDate väljumisAeg, float lennuKestvus, float hind) {
+    public Lend(String start, String sihtkoht, LocalDate väljumisAeg, float lennuKestvus, float hind, ArrayList<String> istekohad) {
         this.start = start;
         this.sihtkoht = sihtkoht;
         this.väljumisAeg = väljumisAeg;
         this.lennuKestvus = lennuKestvus;
         this.hind = hind;
+        this.istekohad = istekohad;
+    }
+
+    public ArrayList<String> getIstekohad() {
+        return istekohad;
     }
 
     public String getStart() {

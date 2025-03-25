@@ -1,14 +1,28 @@
 <template>
   <div>
-    <h1>Flights</h1>
+    <h1>Lennud</h1>
     <table>
-      <li v-for="lend in lennud" :key="lend.start + lend.sihtkoht">
-        <p><strong>From:</strong> {{ lend.start }}</p>
-        <p><strong>To:</strong> {{ lend.sihtkoht }}</p>
-        <p><strong>Date:</strong> {{ lend.väljumisAeg }}</p>
-        <p><strong>Duration:</strong> {{ lend.lennuKestvus }} minutes</p>
-        <p><strong>Price:</strong> ${{ lend.hind }}</p>
-      </li>
+      <thead>
+          <tr>
+            <th>Start</th>
+            <th>Sihtkoht</th>
+            <th>Väljumisaeg</th>
+            <th>Kestvus</th>
+            <th>Hind</th>
+            <th>Vabu Kohte</th>
+          </tr>
+          </thead>
+          <tbody>
+      <tr v-for="lend in lennud" :key="lend.start + lend.sihtkoht">
+        <td>{{ lend.start }}</td>
+        <td>{{ lend.sihtkoht }}</td>
+        <td>{{ lend.väljumisAeg }}</td>
+        <td>{{ lend.lennuKestvus / 60 }} H</td>
+        <td>{{ lend.hind }}</td>
+        <td>{{ vabadKohad(lend.istekohad) }}</td>
+        <button>Ostma</button>
+      </tr>
+    </tbody>
     </table>
   </div>
 </template>
@@ -28,7 +42,12 @@ export default {
       console.log(data)
       this.lennud = data;
     })
+  },
+  methods: {
+    vabadKohad(seats) {
+      return seats.filter(seat => seat !== "X").length;
   }
+ }
 }
 </script>
 
