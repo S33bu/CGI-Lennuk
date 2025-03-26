@@ -1,18 +1,12 @@
 <template>
-    <div id="app">
-    <FlightList />
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
-import FlightList from './components/HelloWorld.vue';
-
 export default {
-  name: 'App',
-  components: {
-    FlightList
-  }
+  name: 'App'
 }
 </script>
 

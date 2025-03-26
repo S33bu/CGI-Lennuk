@@ -18,9 +18,11 @@
         <td>{{ lend.sihtkoht }}</td>
         <td>{{ lend.väljumisAeg }}</td>
         <td>{{ lend.lennuKestvus / 60 }} H</td>
-        <td>{{ lend.hind }}</td>
+        <td>{{ lend.hind }} $</td>
         <td>{{ vabadKohad(lend.istekohad) }}</td>
-        <button>Ostma</button>
+        <router-link :to="{ name: 'SeatPurchase', params: {kohad : JSON.stringify(lend.istekohad)} }">
+              <button>Ostma</button>
+            </router-link>
       </tr>
     </tbody>
     </table>

@@ -2,7 +2,7 @@ package com.example.lennuk;
 
 import java.util.ArrayList;
 
-public class istekohad {
+public class lennukohad {
     public static ArrayList<String> genereeriKohad(){
         ArrayList<String> kohad = new ArrayList<>();
 
