@@ -18,17 +18,23 @@
         <p><span class="resize" @click="eemaldaPilet">-</span>{{ piletiteArv }}<span class="resize" @click="lisaPilet">+</span></p>
         <br>
         <p class="makeButton" @click="soovitaKohti">Soovita meile kohti!</p>
-        <hr>
         <div v-if="soovitatudKohad.length">
           <p>Soovitatud kohad:</p>
           <p v-for="(koht, index) in soovitatudKohad" :key="index">{{ koht }}</p>
         </div>
       </div>
+      <hr>
       <p>Üldised soovitused</p>
-      <li>Akna ääres </li>
-      <p> Koht: {{ aknaäärsedKohad }}</p>
-      <li>Väljapääsu poole</li>
-      <p> Koht: {{ väljapääsuKohad }}</p>
+      <p class="makeButton" @click="aknaäärsedKohad">Akna ääres </p>
+      <div v-if="aknapoolsedKohad.length">
+          <p>Soovitatud kohad:</p>
+          <p v-for="(koht, index) in aknapoolsedKohad" :key="index">{{ koht }}</p>
+        </div>
+      <p class="makeButton" @click="väljapääsuKohad">Väljapääsu poole</p>
+      <div v-if="väljapääsupoolsedKohad.length">
+          <p>Soovitatud kohad:</p>
+          <p v-for="(koht, index) in väljapääsupoolsedKohad" :key="index">{{ koht }}</p>
+        </div>
     </div>
       <table>
         <thead>
@@ -74,6 +80,8 @@
         valitudKohad: [],
         piletiteArv: 0,
         soovitatudKohad: [],
+        aknapoolsedKohad: [],
+        väljapääsupoolsedKohad: [],
       }
     },
     computed: {
@@ -96,34 +104,7 @@
             console.log(paarisKohad)
             return paarisKohad;
         },
-      aknaäärsedKohad(){
-        const istmed = this.parsedIstekohad
-        const aknaäärsed = []
-        for (let i = 0; i < istmed.length; i+=6){
-          if (istmed[i] != "X"){
-            aknaäärsed.push(istmed[i])
-          }
-          if (istmed[i+5] != "X") {
-            aknaäärsed.push(istmed[i+5])
-          }
-        }
-      const randomElement = aknaäärsed[Math.floor(Math.random() * aknaäärsed.length)];
-      return randomElement
-        },
-      väljapääsuKohad() {
-        const istmed = this.parsedIstekohad
-        const väljapääsuÄÄrsed = []
-        for (let i = 0; i < istmed.length; i+=6){
-          if (istmed[i+2] != "X"){
-            väljapääsuÄÄrsed.push(istmed[i+2])
-          }
-          if (istmed[i+3] != "X") {
-            väljapääsuÄÄrsed.push(istmed[i+3])
-          }
-        }
-      const randomElement = väljapääsuÄÄrsed[Math.floor(Math.random() * väljapääsuÄÄrsed.length)];
-      return randomElement
-      }
+      
       },
     mounted() {
       console.log(this.parsedIstekohad);
@@ -141,6 +122,40 @@
         }
       }
     },
+    aknaäärsedKohad(){
+        const istmed = this.parsedIstekohad
+        const aknaäärsed = []
+        this.aknapoolsedKohad = []
+        for (let i = 0; i < istmed.length; i+=6){
+          if (istmed[i] != "X"){
+            aknaäärsed.push(istmed[i])
+          }
+          if (istmed[i+5] != "X") {
+            aknaäärsed.push(istmed[i+5])
+          }
+        }
+        for (let i=1; i <= this.piletiteArv; i++){
+          const randomElement = aknaäärsed[Math.floor(Math.random() * aknaäärsed.length)];
+          this.aknapoolsedKohad.push(randomElement)
+        }
+        },
+      väljapääsuKohad() {
+        const istmed = this.parsedIstekohad
+        const väljapääsuÄÄrsed = []
+        this.väljapääsupoolsedKohad = []
+        for (let i = 0; i < istmed.length; i+=6){
+          if (istmed[i+2] != "X"){
+            väljapääsuÄÄrsed.push(istmed[i+2])
+          }
+          if (istmed[i+3] != "X") {
+            väljapääsuÄÄrsed.push(istmed[i+3])
+          }
+        }
+          for (let i=1; i <= this.piletiteArv; i++){
+          const randomElement = väljapääsuÄÄrsed[Math.floor(Math.random() * väljapääsuÄÄrsed.length)];
+          this.väljapääsupoolsedKohad.push(randomElement)
+        }
+      },
       lisaPilet() {
         this.piletiteArv += 1;
       },
