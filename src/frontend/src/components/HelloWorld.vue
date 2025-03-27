@@ -22,7 +22,7 @@
         <td>{{ lend.hind }} $</td>
         <td>{{ vabadKohad(lend.istekohad) }}</td>
         <router-link :to="{ name: 'SeatPurchase', params: {kohad : JSON.stringify(lend.istekohad), hind: (lend.hind)} }">
-              <button>Ostma</button>
+              <button>Osta Pilet</button>
             </router-link>
       </tr>
     </tbody>
@@ -58,27 +58,44 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 90px;
+  background-color: #f0f0f0;
   
 }
 
 h1 {
   justify-content: center;
   display: flex;
+  padding: 15px;
+  text-align: center;
+  background-color: antiquewhite;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.2em;
 }
 
 table {
-  border-collapse: collapse;
+  border-spacing: 15px;
   margin: auto;
-  background-color: gray;
-  border-radius: 15px
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-td, th {
-  padding: 10px;
+td {
+  padding: 15px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+th {
+  background-color: antiquewhite;
+  padding: 25px;
+  margin: 10px;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }
 
 button {
@@ -86,7 +103,8 @@ button {
   margin-top: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  background-color: gray;
+  background-color: antiquewhite;
+  border-radius: 15px;
 }
 
 button:hover {
