@@ -12,12 +12,23 @@
       <p> Maksta: {{ hind * this.valitudKohad.length }} $</p>
     </div>
       <div class="Soovitused">
-      <p>Istme Soovitused</p>
+        <div class="piletiteArv">
+        <p>Vali kohtade arv</p>
+        <br>
+        <p><span class="resize" @click="eemaldaPilet">-</span>{{ piletiteArv }}<span class="resize" @click="lisaPilet">+</span></p>
+        <br>
+        <p class="makeButton" @click="soovitaKohti">Soovita meile kohti!</p>
+        <hr>
+        <div v-if="soovitatudKohad.length">
+          <p>Soovitatud kohad:</p>
+          <p v-for="(koht, index) in soovitatudKohad" :key="index">{{ koht }}</p>
+        </div>
+      </div>
+      <p>Üldised soovitused</p>
       <li>Akna ääres </li>
       <p> Koht: {{ aknaäärsedKohad }}</p>
       <li>Väljapääsu poole</li>
       <p> Koht: {{ väljapääsuKohad }}</p>
-      <li>Paaristool</li>
     </div>
       <table>
         <thead>
@@ -61,6 +72,8 @@
         istekohad: this.$route.params.kohad || '[]',
         hind: this.$route.params.hind,
         valitudKohad: [],
+        piletiteArv: 0,
+        soovitatudKohad: [],
       }
     },
     computed: {
@@ -128,7 +141,35 @@
         }
       }
     },
-
+      lisaPilet() {
+        this.piletiteArv += 1;
+      },
+      eemaldaPilet () {
+        if (this.piletiteArv != 0){
+          this.piletiteArv -= 1;
+        }
+      },
+      soovitaKohti(){
+        const istmed = this.parsedIstekohad
+        const sobivad_kohad = []
+        for (let i=0; i < istmed.length; i++){
+          const temp = []
+          for (let j=0; j < this.piletiteArv; j++){
+            temp.push(istmed[i+j])
+          }
+          if (temp.includes("X")){
+            i+=1
+          }else{
+            sobivad_kohad.push(temp)
+          }
+        }
+        if (sobivad_kohad.length > 0){
+          const randomElement = sobivad_kohad[Math.floor(Math.random() * sobivad_kohad.length)];
+          this.soovitatudKohad = randomElement
+        } else{
+          alert("Ei leia sobivaid järjestikuseid kohti nii paljudele :(")
+        }
+      },
     }
   }
   </script>
@@ -169,6 +210,18 @@
   background-color: antiquewhite;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.piletiteArv {
+  justify-content: center;
+  padding: 15px;
+  margin: 10px;
+  gap: 10px;
+}
+
+
+button {
+  justify-content: center;
 }
 
  p {
@@ -234,6 +287,29 @@ table {
   .võetud {
     background-color: antiquewhite;
     transition: 0.3s ease;
+  }
+
+  .resize {
+    padding: 5px;
+    background-color: #ffffff;
+    transition: 0.3s ease;
+    transform: translateY(-5px);
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .makeButton {
+    background-color: #ffffff;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  .makeButton:hover {
+    background-color: #f0f0f0;
+    cursor: grab;
   }
 
   span:hover {
