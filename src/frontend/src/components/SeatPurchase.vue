@@ -13,9 +13,11 @@
     </div>
       <div class="Soovitused">
       <p>Istme Soovitused</p>
-      <p>Akna ääres</p>
-      <p>Väljapääsu poole</p>
-      <p>Paaristool</p>
+      <li>Akna ääres </li>
+      <p> Koht: {{ aknaäärsedKohad }}</p>
+      <li>Väljapääsu poole</li>
+      <p> Koht: {{ väljapääsuKohad }}</p>
+      <li>Paaristool</li>
     </div>
       <table>
         <thead>
@@ -31,13 +33,19 @@
 
             <span v-if="!valitudKohad.includes(koht[1])" @click="handleClick(koht[1])">{{ koht[1] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[1])" >{{ koht[1] }}</span>
-          </td>
-          <td>
+
             <span v-if="!valitudKohad.includes(koht[2])" @click="handleClick(koht[2])">{{ koht[2] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[2])" >{{ koht[2] }}</span>
-
+          </td>
+          <td>
             <span v-if="!valitudKohad.includes(koht[3])" @click="handleClick(koht[3])">{{ koht[3] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[3])" >{{ koht[3] }}</span>
+
+            <span v-if="!valitudKohad.includes(koht[4])" @click="handleClick(koht[4])">{{ koht[4] }}</span>
+            <span v-else class="võetud" @click="handleClick(koht[4])" >{{ koht[4] }}</span>
+
+            <span v-if="!valitudKohad.includes(koht[5])" @click="handleClick(koht[5])">{{ koht[5] }}</span>
+            <span v-else class="võetud" @click="handleClick(koht[5])" >{{ koht[5] }}</span>
           </td>
           </tr>
         </tbody>
@@ -64,15 +72,45 @@
           return [];
         }
       },
-    paarisIstmed() {
+      paarisIstmed() {
             const istmed =  this.parsedIstekohad;
             const paarisKohad =  [];
-            for (let i = 0; i < istmed.length; i += 4) {
-        paarisKohad.push([istmed[i] || 'X', istmed[i + 1] || 'X', istmed[i + 2] || 'X', istmed[i + 3] || 'X']);
+            for (let i = 0; i < istmed.length; i += 6) {
+        paarisKohad.push([istmed[i] || 'X', istmed[i + 1] || 'X',
+                            istmed[i + 2] || 'X', istmed[i + 3] || 'X',
+                              istmed[i + 4] || 'X', istmed[i + 5] || 'X']);
       }
             console.log(paarisKohad)
             return paarisKohad;
+        },
+      aknaäärsedKohad(){
+        const istmed = this.parsedIstekohad
+        const aknaäärsed = []
+        for (let i = 0; i < istmed.length; i+=6){
+          if (istmed[i] != "X"){
+            aknaäärsed.push(istmed[i])
+          }
+          if (istmed[i+5] != "X") {
+            aknaäärsed.push(istmed[i+5])
+          }
         }
+      const randomElement = aknaäärsed[Math.floor(Math.random() * aknaäärsed.length)];
+      return randomElement
+        },
+      väljapääsuKohad() {
+        const istmed = this.parsedIstekohad
+        const väljapääsuÄÄrsed = []
+        for (let i = 0; i < istmed.length; i+=6){
+          if (istmed[i+2] != "X"){
+            väljapääsuÄÄrsed.push(istmed[i+2])
+          }
+          if (istmed[i+3] != "X") {
+            väljapääsuÄÄrsed.push(istmed[i+3])
+          }
+        }
+      const randomElement = väljapääsuÄÄrsed[Math.floor(Math.random() * väljapääsuÄÄrsed.length)];
+      return randomElement
+      }
       },
     mounted() {
       console.log(this.parsedIstekohad);
@@ -142,6 +180,15 @@
   
  }
 
+li {
+  padding: 5px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 15px;
+  justify-content: center;
+}
+
  h1 {
   display: flex;
   align-items: center;
@@ -153,7 +200,7 @@
 
 table {
   border-collapse: separate;
-  border-spacing: 10px; 
+  border-spacing: 20px 
 }
 
   td {
@@ -205,7 +252,13 @@ table {
   background-color: antiquewhite;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position:fixed;
 }
+
+  nav:hover {
+    background-color: #f0f0f0;
+    transition: 0.3s ease;
+  }
 
 nav a {
   color: black;
