@@ -65,6 +65,7 @@
              >{{ koht[2] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[2])" >{{ koht[2] }}</span>
           </td>
+          <!--et tekiks n.ö vahekäik istmete vahele-->
           <td>
             <span v-if="!valitudKohad.includes(koht[3])"
              @click="handleClick(koht[3])"
@@ -283,7 +284,15 @@ li {
   justify-content: center;
   margin-bottom: 20px;
   font-size: 2em;
-  color: #ffffff;
+  color: black;
+  text-align: center;
+  background-color: antiquewhite;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.2em;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 table {

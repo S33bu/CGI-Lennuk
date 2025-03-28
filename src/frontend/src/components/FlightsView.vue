@@ -2,6 +2,21 @@
   <div class="outer-container">
     <h1>Lennud</h1>
     <div class="container">
+
+      <div class="filtrid">
+      <label>Start:</label>
+      <input type="text" v-model="startFilter" placeholder="    Sisesta alguspunkt" />
+
+      <label>Sihtkoht:</label>
+      <input type="text" v-model="sihtkohtFilter" placeholder="    Sisesta sihtkoht" />
+
+      <label>Kestvus:</label>
+      <input type="number" v-model="maxKestvus" placeholder="    Sisesta max kestvus" />
+
+      <label>Max Hind:</label>
+      <input type="number" v-model="maxHind" placeholder="    Sisesta max hind" />
+    </div>
+
     <table>
       <thead>
           <tr>
@@ -14,8 +29,8 @@
           </tr>
           </thead>
           <tbody>
-      <tr v-for="lend in lennud" :key="lend.start + lend.sihtkoht">
-        <td><v-th sortKey>{{ lend.start }}</v-th></td>
+      <tr v-for="lend in FilteredLennud" :key="lend.start + lend.sihtkoht">
+        <td>{{ lend.start }}</td>
         <td>{{ lend.sihtkoht }}</td>
         <td>{{ lend.väljumisAeg }}</td>
         <td>{{ lend.lennuKestvus / 60 }} H</td>
@@ -33,10 +48,14 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'FlightsView',
   data() {
     return {
       lennud: [],
+      maxHind: null,
+      sihtkohtFilter: "",
+      startFilter: "",
+      maxKestvus: null,
     }
   },
   mounted() {
@@ -46,6 +65,17 @@ export default {
       console.log(data)
       this.lennud = data;
     })
+  },
+  computed: {
+    FilteredLennud() {
+      return this.lennud.filter(lend => {
+        const kasHindSobib = this.maxHind ? lend.hind <= this.maxHind : true;
+        const kasSihtkohtSobib = this.sihtkohtFilter ? lend.sihtkoht.toLowerCase().includes(this.sihtkohtFilter.toLowerCase()) : true;
+        const kasStartSobib = this.startFilter ? lend.start.toLowerCase().includes(this.startFilter.toLowerCase()) : true;
+        const kasKestvusSobib = this.maxKestvus ? lend.lennuKestvus/60 <= this.maxKestvus : true;
+        return kasHindSobib && kasSihtkohtSobib && kasStartSobib && kasKestvusSobib;
+      });
+    }
   },
   methods: {
     vabadKohad(seats) {
@@ -57,10 +87,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.outer-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
 .container {
   padding: 90px;
   background-color: #f0f0f0;
-  
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding: 20px;
 }
 
 h1 {
@@ -80,6 +120,7 @@ table {
   background-color: #ffffff;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 td {
@@ -110,6 +151,34 @@ button {
 button:hover {
   background-color: gainsboro;
   transition: background-color 0.3s ease;
+}
+
+.filtrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  background-color: antiquewhite;
+  border-radius: 15px;
+  margin-right: 5px;
+}
+
+input {
+  margin-right: 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
   
