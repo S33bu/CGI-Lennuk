@@ -25,7 +25,7 @@
       </div>
       <hr>
       <br>
-      <p>Üldised soovitused</p>
+      <p>Spetsiifilsemad soovitused</p>
       <p class="makeButton" @click="aknaäärsedKohad">Akna ääres </p>
       <div v-if="aknapoolsedKohad.length">
           <p>Soovitatud kohad:</p>
@@ -159,6 +159,8 @@
           const randomElement = aknaäärsed[Math.floor(Math.random() * aknaäärsed.length)];
           this.aknapoolsedKohad.push(randomElement)
         }
+        this.soovitatudKohad = [];
+        this.väljapääsupoolsedKohad = [];
         },
       väljapääsuKohad() {
         const istmed = this.parsedIstekohad
@@ -176,6 +178,8 @@
           const randomElement = väljapääsuÄÄrsed[Math.floor(Math.random() * väljapääsuÄÄrsed.length)];
           this.väljapääsupoolsedKohad.push(randomElement)
         }
+        this.soovitatudKohad = [];
+        this.aknapoolsedKohad = [];
       },
       lisaPilet() {
         this.piletiteArv += 1;
@@ -205,6 +209,8 @@
         } else{
           alert("Ei leia sobivaid järjestikuseid kohti nii paljudele :(")
         }
+        this.aknapoolsedKohad = [];
+        this.väljapääsupoolsedKohad = [];
       },
     }
   }
