@@ -67,6 +67,7 @@ export default {
     })
   },
   computed: {
+    //Funktsioon, mis teeb vajalikud ülevaatused vastavalt filtrite nõuetele ning väljastab tabelisse ainult need, mis on sobilikud
     FilteredLennud() {
       return this.lennud.filter(lend => {
         const kasHindSobib = this.maxHind ? lend.hind <= this.maxHind : true;
@@ -78,6 +79,7 @@ export default {
     }
   },
   methods: {
+    //Arvutab välja mitu vaba kohta lennus on
     vabadKohad(seats) {
       return seats.filter(seat => seat !== "X").length;
   }

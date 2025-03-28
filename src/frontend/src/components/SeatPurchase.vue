@@ -114,6 +114,7 @@
           return [];
         }
       },
+      //Funktsioon selleks, et mugavamalt üles ehitada istmekohtade visualiseerimist
       paarisIstmed() {
             const istmed =  this.parsedIstekohad;
             const paarisKohad =  [];
@@ -131,6 +132,7 @@
       console.log(this.parsedIstekohad);
     },
     methods: {
+      //funktsioon, mille abil on näha valitud istmekohti
       handleClick(seat) {
       if (seat === 'X') {
         alert('Koht on juba broneeritud!');
@@ -143,6 +145,8 @@
         }
       }
     },
+    //otsib välja sobilikud aknaäärsed istmed vastavalt valitud kohtade arvule
+    //Täidab listi kõikide sobilike istmetega ning lõpus valib neist juhusliku
     aknaäärsedKohad(){
         const istmed = this.parsedIstekohad
         const aknaäärsed = []
@@ -162,6 +166,8 @@
         this.soovitatudKohad = [];
         this.väljapääsupoolsedKohad = [];
         },
+        //otsib välja sobilikud väljapääsupoolsed istmed vastavalt valitud kohtade arvule
+        //Täidab listi kõikide sobilike istmetega ning lõpus valib neist juhusliku
       väljapääsuKohad() {
         const istmed = this.parsedIstekohad
         const väljapääsuÄÄrsed = []
@@ -189,6 +195,8 @@
           this.piletiteArv -= 1;
         }
       },
+      //Soovitab vastavalt valitud piletite arvule istmekohti 
+      //Täidab listi kõikide sobilike järjestikuste istmetega ning lõpus valib neist juhusliku
       soovitaKohti(){
         const istmed = this.parsedIstekohad
         const sobivad_kohad = []
