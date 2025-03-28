@@ -24,12 +24,14 @@
         </div>
       </div>
       <hr>
+      <br>
       <p>Üldised soovitused</p>
       <p class="makeButton" @click="aknaäärsedKohad">Akna ääres </p>
       <div v-if="aknapoolsedKohad.length">
           <p>Soovitatud kohad:</p>
           <p v-for="(koht, index) in aknapoolsedKohad" :key="index">{{ koht }}</p>
         </div>
+        <br>
       <p class="makeButton" @click="väljapääsuKohad">Väljapääsu poole</p>
       <div v-if="väljapääsupoolsedKohad.length">
           <p>Soovitatud kohad:</p>
@@ -45,23 +47,41 @@
         <tbody>
           <tr v-for="(koht, index) in paarisIstmed" :key="index">
             <td>
-            <span v-if="!valitudKohad.includes(koht[0])" @click="handleClick(koht[0])">{{ koht[0] }}</span>
+            <span v-if="!valitudKohad.includes(koht[0])" 
+            @click="handleClick(koht[0])" 
+            :class="{'soovitatud-koht': soovitatudKohad.includes(koht[0]) || aknapoolsedKohad.includes(koht[0]) || väljapääsupoolsedKohad.includes(koht[0])}"
+            >{{ koht[0] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[0])" >{{ koht[0] }}</span>
 
-            <span v-if="!valitudKohad.includes(koht[1])" @click="handleClick(koht[1])">{{ koht[1] }}</span>
+            <span v-if="!valitudKohad.includes(koht[1])"
+             @click="handleClick(koht[1])" 
+             :class="{'soovitatud-koht': soovitatudKohad.includes(koht[1]) || aknapoolsedKohad.includes(koht[1]) || väljapääsupoolsedKohad.includes(koht[1])}"
+            >{{ koht[1] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[1])" >{{ koht[1] }}</span>
 
-            <span v-if="!valitudKohad.includes(koht[2])" @click="handleClick(koht[2])">{{ koht[2] }}</span>
+            <span v-if="!valitudKohad.includes(koht[2])"
+             @click="handleClick(koht[2])"
+             :class="{'soovitatud-koht': soovitatudKohad.includes(koht[2]) || aknapoolsedKohad.includes(koht[2]) || väljapääsupoolsedKohad.includes(koht[2])}"
+             >{{ koht[2] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[2])" >{{ koht[2] }}</span>
           </td>
           <td>
-            <span v-if="!valitudKohad.includes(koht[3])" @click="handleClick(koht[3])">{{ koht[3] }}</span>
+            <span v-if="!valitudKohad.includes(koht[3])"
+             @click="handleClick(koht[3])"
+             :class="{'soovitatud-koht': soovitatudKohad.includes(koht[3]) || aknapoolsedKohad.includes(koht[3]) || väljapääsupoolsedKohad.includes(koht[3])}"
+             >{{ koht[3] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[3])" >{{ koht[3] }}</span>
 
-            <span v-if="!valitudKohad.includes(koht[4])" @click="handleClick(koht[4])">{{ koht[4] }}</span>
+            <span v-if="!valitudKohad.includes(koht[4])"
+             @click="handleClick(koht[4])"
+             :class="{'soovitatud-koht': soovitatudKohad.includes(koht[4]) || aknapoolsedKohad.includes(koht[4]) || väljapääsupoolsedKohad.includes(koht[4])}"
+             >{{ koht[4] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[4])" >{{ koht[4] }}</span>
 
-            <span v-if="!valitudKohad.includes(koht[5])" @click="handleClick(koht[5])">{{ koht[5] }}</span>
+            <span v-if="!valitudKohad.includes(koht[5])"
+             @click="handleClick(koht[5])"
+             :class="{'soovitatud-koht': soovitatudKohad.includes(koht[5]) || aknapoolsedKohad.includes(koht[5]) || väljapääsupoolsedKohad.includes(koht[5])}"
+             >{{ koht[5] }}</span>
             <span v-else class="võetud" @click="handleClick(koht[5])" >{{ koht[5] }}</span>
           </td>
           </tr>
@@ -301,6 +321,7 @@ table {
   
   .võetud {
     background-color: antiquewhite;
+    border: black;
     transition: 0.3s ease;
   }
 
@@ -326,6 +347,11 @@ table {
     background-color: #f0f0f0;
     cursor: grab;
   }
+
+  .soovitatud-koht {
+  background-color: lightgreen;
+  border: 2px solid green;
+}
 
   span:hover {
     background-color: gainsboro;
