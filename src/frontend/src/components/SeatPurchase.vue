@@ -115,6 +115,7 @@
         }
       },
       //Funktsioon selleks, et mugavamalt üles ehitada istmekohtade visualiseerimist
+      //Nimetus paarisistmed, sest tegin algselt 3+3 toolide asemel 2+2
       paarisIstmed() {
             const istmed =  this.parsedIstekohad;
             const paarisKohad =  [];
